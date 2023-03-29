@@ -1,32 +1,93 @@
-# dock-kube-CI
 
-Steps for configuring a CI-CD pipeline integration for jenkins, docker and kubernetes to deploy an application.
+# dock-kube-CI - Docker-kubernetes-Jenkins integration
 
+This repository contains a DevOps project that demonstrates the end-to-end process of building, testing, and deploying an application. The project consists of a sample web application and the infrastructure needed to deploy it on a cloud-based platform.
 
-### Deploy a linux instance on aws and ssh into your instance.
+Technologies Used
+- Docker
+- Kubernetes
+- Jenkins
+- AWS (Amazon Web Services)
+- Git
 
-### Install docker on the instance using the official docs
-`https://docs.docker.com/engine/install/ubuntu/`
+## Architecture
 
-### Install jenkins and java dependencies on the server 
-`https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-22-04`
+The project's architecture consists of three main components:
 
-1. Add jenkins and docker to the sudoer groups `sudo usermod -aG docker jenkins`. This would add jenkins to docker group and allow it perform docker commands with sudo rights.
+- Web Application: A sample web application built using Python Flask framework, which is containerized using Docker. The application displays a simple message on a web page.
 
-2. Run the command to add the jenkins user to the sudoers group
+- Kubernetes: The application is deployed to a Kubernetes cluster running on AWS Elastic Kubernetes Service (EKS).
+
+- Docker: Docker allows the build of the image for the application and push to dockerhub registry. 
+
+- Jenkins: Jenkins is used as the CI/CD tool to automate the building, testing, and deployment of the application. The Jenkins pipeline is configured to build the Docker image, run unit tests, and push the Docker image to the Docker Hub registry. Upon successful build and tests, the pipeline triggers the Kubernetes deployment using the Kubernetes YAML files.
+
+## Getting Started
+
+### Prerequisites
+
+To run this project, you will need:
+
+- Docker
+- Kubernetes
+- Jenkins
+- AWS account
+- Git
+
+## Installation
+
+To get started with the project, follow these steps:
+
+Clone the repository using the following command:
+
+```bash
+git clone https://github.com/{username}/{repository}.git
+```
+
+Change to the project directory:
+```bash
+cd {repository}
+```
+
+Build the Docker image:
+```bash
+docker build -t {docker_username}/{image_name}:{tag} .
+```
+
+Push the Docker image to the Docker Hub registry:
+```bash
+docker push {docker_username}/{image_name}:{tag}
+```
+
+Configure the Kubernetes cluster and deployment files with your AWS credentials and Docker image information.
+
+Deploy the application to the Kubernetes cluster:
+```bash
+kubectl apply -f {kubernetes_directory}
+```
+
+Configure Jenkins and create a new pipeline using the Jenkinsfile provided in the repository.
+
+## NB
+
+Add jenkins and docker to the sudoer groups `sudo usermod -aG docker jenkins`. This would add jenkins to docker group and allow it perform docker commands with sudo rights.
+
+Run the command to add the jenkins user to the sudoers group
 
 `sudo echo "jenkins ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/jenkins`
 
-3. Run `sudo chown jenkins  /var/run/docker.sock` to allow jenkins access the docker.sock directory.
+Run `sudo chown jenkins  /var/run/docker.sock` to allow jenkins access the docker.sock directory.
 
-4. Switch to your jenkins user with
+Switch to your jenkins user with
 `sudo su - jenkins`
 
-### Install and configure a kubernetes production cluster with KOPS (as a jenkins user on the server)
-- Install aws cli
-- Configure s3 bucket
-- Install KOPS software
-- Create a KOPS cluster
 
-### Access the jenkins UI and setup a pipepline project 
-`serverIP:8080`
+## Usage
+
+Once the application is deployed, you can access it by navigating to the Kubernetes service URL in a web browser. The application will display a simple message on the page.
+
+## Conclusion
+
+This project demonstrates the end-to-end process of building, testing, and deploying an application using Docker, Kubernetes, and Jenkins. The project's architecture provides a scalable and reliable solution to deploy web applications on cloud-based platforms like AWS. By following the steps outlined in this readme file, you can get started with the project and learn more about DevOps methodologies and best practices.
+
+
