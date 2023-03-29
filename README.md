@@ -31,7 +31,7 @@ To run this project, you will need:
 - Docker
 - Kubernetes
 - Jenkins
-- AWS account
+- AWS EC2 instance
 - Git
 
 ## Installation
@@ -41,12 +41,12 @@ To get started with the project, follow these steps:
 Clone the repository using the following command:
 
 ```bash
-git clone https://github.com/{username}/{repository}.git
+git clone https://github.com/talk2anyi/dock-kube-CI.git
 ```
 
 Change to the project directory:
 ```bash
-cd {repository}
+cd dock-kube-CI
 ```
 
 Build the Docker image:
@@ -63,12 +63,12 @@ Configure the Kubernetes cluster and deployment files with your AWS credentials 
 
 Deploy the application to the Kubernetes cluster:
 ```bash
-kubectl apply -f {kubernetes_directory}
+kubectl apply -f hello-app.yml
 ```
 
 Configure Jenkins and create a new pipeline using the Jenkinsfile provided in the repository.
 
-## NB
+## NB:
 
 Add jenkins and docker to the sudoer groups `sudo usermod -aG docker jenkins`. This would add jenkins to docker group and allow it perform docker commands with sudo rights.
 
